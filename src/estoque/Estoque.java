@@ -18,10 +18,22 @@ public class Estoque {
     }
 
     public void venderProduto(int indice, int quantidade) throws ProdutoIndisponivelException {
+        produtos.get(validarIndice(indice)).vender(quantidade);
+    }
+
+    public Product getProduto(int indice) {
+        return produtos.get(validarIndice(indice));
+    }
+
+    public int totalDeProdutos() {
+        return produtos.size();
+    }
+
+    private int validarIndice(int indice) {
         if (indice < 0 || indice >= produtos.size()) {
             throw new IllegalArgumentException("Índice de produto inválido: " + indice);
         }
-        produtos.get(indice).vender(quantidade);
+        return indice;
     }
 
     public double calcularValorTotalEstoque() {

@@ -15,7 +15,12 @@ public class ProdutoPerecivel extends Product {
 
     @Override
     public double calcularValorTotal() {
-        double total = getPreco() * getQuantidade();
+        return calcularValorParaQuantidade(getQuantidade());
+    }
+
+    @Override
+    public double calcularValorParaQuantidade(int quantidade) {
+        double total = getPreco() * quantidade;
         if (diasParaVencer <= 3) {
             total *= 0.8; // 20% de desconto automático perto do vencimento
         }
@@ -24,7 +29,17 @@ public class ProdutoPerecivel extends Product {
 
     @Override
     public String getDescricao() {
-        return super.getDescricao() + " | Vence em: " + diasParaVencer + " dia(s)";
+        String descricao;
+        if (diasParaVencer <= 3) {
+            // Mostra pro cliente/funcionário o preço original e o preço já com
+            // desconto, em vez de deixar o desconto "escondido" só no total.
+            double precoComDesconto = getPreco() * 0.8;
+            descricao = String.format("%s | Preço: R$ %.2f (20%% de desconto por estar próximo do vencimento: R$ %.2f) | Quantidade: %d",
+                getNome(), getPreco(), precoComDesconto, getQuantidade());
+        } else {
+            descricao = super.getDescricao();
+        }
+        return descricao + " | Vence em: " + diasParaVencer + " dia(s)";
     }
 
     public int getDiasParaVencer() {

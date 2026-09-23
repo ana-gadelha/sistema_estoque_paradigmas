@@ -10,6 +10,11 @@ public class ProdutoComum extends Product {
 
     @Override
     public double calcularValorTotal() {
-        return getPreco() * getQuantidade();
+        return calcularValorParaQuantidade(getQuantidade());
+    }
+
+    @Override
+    public double calcularValorParaQuantidade(int quantidade) {
+        return getPreco() * quantidade;
     }
 }

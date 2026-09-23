@@ -23,6 +23,11 @@ public abstract class Product implements Vendavel {
     // Método abstrato: cada subclasse decide como calcular
     public abstract double calcularValorTotal();
 
+    // Extra: calcula quanto custaria uma quantidade arbitrária deste produto,
+    // aplicando a mesma regra de desconto que cada subclasse usa em
+    // calcularValorTotal(). Usado na simulação de compra em EstoqueApp.
+    public abstract double calcularValorParaQuantidade(int quantidade);
+
     // Método concreto: descrição formatada
     public String getDescricao() {
         return String.format("%s | Preço: R$ %.2f | Quantidade: %d", nome, preco, quantidade);
